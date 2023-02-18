@@ -3,8 +3,10 @@ var timerEl = document.querySelector("#timer");
 var questionEl = document.querySelector('h2');
 var optionsEl = document.querySelector('#options');
 var gameTrackerEl = document.querySelector('#game-tracker');
+var currentScore = document.createElement("div");
+gameTrackerEl.appendChild(currentScore);
 
-var score = 0;
+var score;
 var scoreboard = [];
 
 var lastAnswer = true;
@@ -25,12 +27,10 @@ var questions = [question1, question2, question3];
 
 // Timer that starts on click of Start Button
 function startQuiz() {
+    score = 0;
 
     startButtonEl.classList.toggle("hide");
-
-    var currentScore = document.createElement("div");
     currentScore.innerText = 'Current Score: ' + score;
-    gameTrackerEl.appendChild(currentScore);
 
     var timer = setInterval(countdown, 1000);
 
