@@ -12,3 +12,4 @@ THEN I can save my initials and score
 
 - How would I get the timer to restart once it's run down completely?
 - For Each vs. For Loop?
+- Add randomizing of question presentation and options presentation

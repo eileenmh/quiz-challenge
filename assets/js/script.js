@@ -3,6 +3,7 @@ var timerEl = document.querySelector("#timer");
 var questionEl = document.querySelector('h2');
 var optionsEl = document.querySelector('#options');
 var gameTrackerEl = document.querySelector('#game-tracker');
+var scoreButtonEl = document.querySelector('#submit-score');
 var currentScore = document.createElement("div");
 gameTrackerEl.appendChild(currentScore);
 
@@ -91,4 +92,10 @@ function restartQuiz() {
     startButtonEl.classList.toggle("hide");
 }
 
+function saveScore(event) {
+    event.preventDefault();
+    console.log("Woohoo!");
+}
+
 startButtonEl.addEventListener('click', startQuiz);
+scoreButtonEl.addEventListener('submit', saveScore);
