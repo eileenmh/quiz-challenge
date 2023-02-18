@@ -10,8 +10,11 @@ function MultipleChoice(q, o, a) {
     this.answer = a;
 }
 
-var question1 = new MultipleChoice("This is a question", ['option 1', 'option 2', 'option 3', 'option 4'], "option 3");
-console.log(question1.options);
+var question1 = new MultipleChoice("Question 1 Text", ['q1 - option 1', 'q1 - option 2', 'q1 - option 3', 'q1 - option 4'], "q1 - option 3");
+var question2 = new MultipleChoice("Question 2 Text", ['q2 - option 1', 'q2 - option 2', 'q2 - option 3', 'q2 - option 4'], "q2 - option 1");
+var question3 = new MultipleChoice("Question 3 Text", ['q3 - option 1', 'q3 - option 2', 'q3 - option 3', 'q3 - option 4'], "q3 - option 4");
+
+var questions = [question1, question2, question3];
 
 // Timer that starts on click of Start Button
 function startQuiz() {
@@ -34,24 +37,26 @@ function startQuiz() {
             }
         }
     }
+    var questionNumber = -1;
+    function getQuestions() {
+        optionsEl.innerHTML = "";
+        questionNumber++;
+        if (questionNumber <= questions.length) {
+            questionEl.innerText = questions[questionNumber].question;
 
-    function firstQuestion() {
-        questionEl.innerHTML = question1.question;
-        function testingTesting() {
-            console.log("this worked!");
+            for (let i = 0; i < questions[questionNumber].options.length; i++) {
+                console.log("answerOption loop runs");
+                 var answerOption = document.createElement("button");
+                 answerOption.innerText = questions[questionNumber].options[i];
+                 answerOption.classList.add("answer-option");
+                 optionsEl.appendChild(answerOption);
+                 answerOption.addEventListener('click',getQuestions);
+            }            
         }
-        for (let i = 0; i < question1.options.length; i++) {
-            var answerOption = document.createElement('button');
-            answerOption.innerText = question1.options[i];
-            answerOption.classList.add("answer-option");
-            optionsEl.appendChild(answerOption);
-            answerOption.addEventListener('click',testingTesting);
-        }
-
     }
 
     runTimer();
-    firstQuestion();
+    getQuestions();
 }
 
 startButtonEl.addEventListener('click', startQuiz);
