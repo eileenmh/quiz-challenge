@@ -9,3 +9,6 @@ WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
 THEN I can save my initials and score
+
+- How would I get the timer to restart once it's run down completely?
+- For Each vs. For Loop?
