@@ -25,10 +25,12 @@ var questions = [question1, question2, question3];
 
 // Timer that starts on click of Start Button
 function startQuiz() {
+
+    startButtonEl.classList.toggle("hide");
+
     var currentScore = document.createElement("div");
     currentScore.innerText = 'Current Score: ' + score;
     gameTrackerEl.appendChild(currentScore);
-    
 
     var timer = setInterval(countdown, 1000);
 
@@ -42,8 +44,8 @@ function startQuiz() {
             }
             else {
                 timerEl.innerHTML = "Time's up!";
+                restartQuiz();
                 clearInterval(timer);
-                
             }
         }
 
@@ -65,6 +67,7 @@ function startQuiz() {
         else {
             timerEl.innerHTML = "All done!";
             console.log("still running");
+            restartQuiz();
             clearInterval(timer);
         }
     }
@@ -83,5 +86,9 @@ function startQuiz() {
     getQuestions();
 }
 
+function restartQuiz() {
+    timeLeft = 60;
+    startButtonEl.classList.toggle("hide");
+}
+
 startButtonEl.addEventListener('click', startQuiz);
-startButtonEl.addEventListener('click',startButtonEl.remove);
