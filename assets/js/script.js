@@ -4,6 +4,8 @@ var questionEl = document.querySelector('h2');
 var optionsEl = document.querySelector('#options');
 var gameTrackerEl = document.querySelector('#game-tracker');
 var score = 0;
+var lastAnswer = true;
+var timeLeft = 60;
 
 // Quiz Questions
 function MultipleChoice(q, o, a) {
@@ -23,9 +25,10 @@ function startQuiz() {
     var currentScore = document.createElement("div");
     currentScore.innerText = 'Current Score: ' + score;
     gameTrackerEl.appendChild(currentScore);
+    
 
     function runTimer() {
-        var timeLeft = 60;
+        
         setInterval(countdown, 1000);
         function countdown() {
             if (timeLeft > 2 && questionNumber < questions.length) {
@@ -44,6 +47,9 @@ function startQuiz() {
     }
     var questionNumber = -1;
     function getQuestions() {
+        if (lastAnswer === false) {
+            timeLeft -= 5;
+        }
         optionsEl.innerHTML = "";
         questionNumber++;
         if (questionNumber < questions.length) {
@@ -62,12 +68,12 @@ function startQuiz() {
         }
     }
     function checkAnswer (event) {
-        var checkAnswer = event.srcElement.textContent === questions[questionNumber].answer;
-        if(checkAnswer) {
+        lastAnswer = event.srcElement.textContent === questions[questionNumber].answer;
+        if(lastAnswer) {
             score++;
         }
         currentScore.innerText = 'Current Score: ' + score;
-        setTimeout(getQuestions, 2000);
+        getQuestions();
     }
 
     runTimer();
