@@ -2,6 +2,7 @@ var startButtonEl = document.querySelector("#start-button");
 var timerEl = document.querySelector("#timer");
 var questionEl = document.querySelector('h2');
 var optionsEl = document.querySelector('#options');
+var gameTrackerEl = document.querySelector('#game-tracker');
 var score = 0;
 
 // Quiz Questions
@@ -19,16 +20,19 @@ var questions = [question1, question2, question3];
 
 // Timer that starts on click of Start Button
 function startQuiz() {
+    var currentScore = document.createElement("div");
+    currentScore.innerText = 'Current Score: ' + score;
+    gameTrackerEl.appendChild(currentScore);
 
     function runTimer() {
         var timeLeft = 60;
         setInterval(countdown, 1000);
         function countdown() {
-            if (timeLeft > 2 ) {
+            if (timeLeft > 2 && questionNumber < questions.length) {
                 timeLeft--;
                 timerEl.innerHTML = '00:' + timeLeft + ' seconds remaining';
             } 
-            else if (timeLeft === 2) {
+            else if (timeLeft === 2 && questionNumber < questions.length) {
                 timeLeft--;
                 timerEl.innerHTML = timeLeft + ' second remaining';
             } 
@@ -42,7 +46,7 @@ function startQuiz() {
     function getQuestions() {
         optionsEl.innerHTML = "";
         questionNumber++;
-        if (questionNumber <= questions.length) {
+        if (questionNumber < questions.length) {
             questionEl.innerText = questions[questionNumber].question;
 
             for (let i = 0; i < questions[questionNumber].options.length; i++) {
@@ -53,10 +57,16 @@ function startQuiz() {
                  answerOption.addEventListener('click',checkAnswer);
             }            
         }
+        else {
+            clearInterval(runTimer);
+        }
     }
     function checkAnswer (event) {
         var checkAnswer = event.srcElement.textContent === questions[questionNumber].answer;
-        console.log(checkAnswer);
+        if(checkAnswer) {
+            score++;
+        }
+        currentScore.innerText = 'Current Score: ' + score;
         setTimeout(getQuestions, 2000);
     }
 
