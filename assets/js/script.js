@@ -14,31 +14,37 @@ var question1 = new MultipleChoice("This is a question", ['option 1', 'option 2'
 console.log(question1.options);
 
 // Timer that starts on click of Start Button
-function runTimer() {
-    var timeLeft = 60;
-    setInterval(countdown, 1000);
-    function countdown() {
-        if (timeLeft > 2 ) {
-            timeLeft--;
-            timerEl.innerHTML = timeLeft + ' seconds remaining';
-        } 
-        else if (timeLeft === 2) {
-            timeLeft--;
-            timerEl.innerHTML = timeLeft + ' second remaining';
-        } 
-        else {
-            timerEl.innerHTML = "Time's up!";
-            clearInterval(runTimer);
+function startQuiz() {
+
+    function runTimer() {
+        var timeLeft = 60;
+        setInterval(countdown, 1000);
+        function countdown() {
+            if (timeLeft > 2 ) {
+                timeLeft--;
+                timerEl.innerHTML = '00:' + timeLeft + ' seconds remaining';
+            } 
+            else if (timeLeft === 2) {
+                timeLeft--;
+                timerEl.innerHTML = timeLeft + ' second remaining';
+            } 
+            else {
+                timerEl.innerHTML = "Time's up!";
+                clearInterval(runTimer);
+            }
         }
     }
-}
 
-function firstQuestion() {
-    questionEl.innerHTML = question1.question;
-    optionsEl.innerHTML = question1.options;
-}
+    function firstQuestion() {
+        questionEl.innerHTML = question1.question;
+        for (let i = 0; i < question1.options.length; i++) {
+            var answerOption = document.createElement('button');
+            answerOption.innerText = question1.options[i];
+            optionsEl.appendChild(answerOption);
+        }
 
-function startQuiz() {
+    }
+
     runTimer();
     firstQuestion();
 }
