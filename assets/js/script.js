@@ -2,6 +2,7 @@ var startButtonEl = document.querySelector("#start-button");
 var timerEl = document.querySelector("#timer");
 var questionEl = document.querySelector('h2');
 var optionsEl = document.querySelector('#options');
+var score = 0;
 
 // Quiz Questions
 function MultipleChoice(q, o, a) {
@@ -45,14 +46,18 @@ function startQuiz() {
             questionEl.innerText = questions[questionNumber].question;
 
             for (let i = 0; i < questions[questionNumber].options.length; i++) {
-                console.log("answerOption loop runs");
                  var answerOption = document.createElement("button");
                  answerOption.innerText = questions[questionNumber].options[i];
                  answerOption.classList.add("answer-option");
                  optionsEl.appendChild(answerOption);
-                 answerOption.addEventListener('click',getQuestions);
+                 answerOption.addEventListener('click',checkAnswer);
             }            
         }
+    }
+    function checkAnswer (event) {
+        var checkAnswer = event.srcElement.textContent === questions[questionNumber].answer;
+        console.log(checkAnswer);
+        getQuestions();
     }
 
     runTimer();
