@@ -17,10 +17,16 @@
     </header>
 
     <main>
+        <section>
         <h2>Test Your Full-Stack Knowledge!</h2>
-        <div id="options" class="btn-group-vertical">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dignissim enim sit amet venenatis urna cursus. Rhoncus mattis rhoncus urna neque.</p>
-        </div> 
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dignissim enim sit amet venenatis urna cursus. Rhoncus mattis rhoncus urna neque.</p>
+        <div id="gameboard">
+            <h3></h3>
+            <div class="btn-group-vertical">
+                <div id="options">
+                </div>
+            </div>
+        </div>
         <button id="start-button" class>Start the Quiz</button>
         <div id ="feedback"></div>
         <div id = "game-tracker"></div>
@@ -32,6 +38,12 @@
                 <input id="save-button" type="submit" value="Save Score">
             </form>
         </div>
+        </section>
+
+        <section>
+            <h2>Scoreboard</h2>
+            <div id="scorelist">No scores saved yet.</div>
+        </section>
     </main>
 
     <script src='./assets/js/script.js'></script>

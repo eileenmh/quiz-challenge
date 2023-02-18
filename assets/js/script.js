@@ -1,6 +1,6 @@
 var startButtonEl = document.querySelector("#start-button");
 var timerEl = document.querySelector("#timer");
-var questionEl = document.querySelector('h2');
+var questionEl = document.querySelector('h3');
 var optionsEl = document.querySelector('#options');
 var gameTrackerEl = document.querySelector('#game-tracker');
 var scoreButtonEl = document.querySelector('#submit-score');
