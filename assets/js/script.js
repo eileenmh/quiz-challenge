@@ -37,10 +37,15 @@ function startQuiz() {
 
     function firstQuestion() {
         questionEl.innerHTML = question1.question;
+        function testingTesting() {
+            console.log("this worked!");
+        }
         for (let i = 0; i < question1.options.length; i++) {
             var answerOption = document.createElement('button');
             answerOption.innerText = question1.options[i];
+            answerOption.classList.add("answer-option");
             optionsEl.appendChild(answerOption);
+            answerOption.addEventListener('click',testingTesting);
         }
 
     }
