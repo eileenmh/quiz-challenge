@@ -57,7 +57,7 @@ function startQuiz() {
     function checkAnswer (event) {
         var checkAnswer = event.srcElement.textContent === questions[questionNumber].answer;
         console.log(checkAnswer);
-        getQuestions();
+        setTimeout(getQuestions, 2000);
     }
 
     runTimer();
