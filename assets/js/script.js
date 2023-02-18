@@ -3,7 +3,10 @@ var timerEl = document.querySelector("#timer");
 var questionEl = document.querySelector('h2');
 var optionsEl = document.querySelector('#options');
 var gameTrackerEl = document.querySelector('#game-tracker');
+
 var score = 0;
+var scoreboard = [];
+
 var lastAnswer = true;
 var timeLeft = 60;
 
@@ -27,29 +30,25 @@ function startQuiz() {
     gameTrackerEl.appendChild(currentScore);
     
 
-    function runTimer() {
-        
-        setInterval(countdown, 1000);
-        function countdown() {
-            if (timeLeft > 2 && questionNumber < questions.length) {
-                timeLeft--;
-                timerEl.innerHTML = '00:' + timeLeft + ' seconds remaining';
-            } 
-            else if (timeLeft === 2 && questionNumber < questions.length) {
-                timeLeft--;
+    var timer = setInterval(countdown, 1000);
+
+    function countdown() {
+            timeLeft--;
+            if (timeLeft > 2) {
+                timerEl.innerHTML = timeLeft + ' seconds remaining';
+            }
+            else if (timeLeft === 2) {
                 timerEl.innerHTML = timeLeft + ' second remaining';
-            } 
+            }
             else {
                 timerEl.innerHTML = "Time's up!";
-                clearInterval(runTimer);
+                clearInterval(timer);
+                
             }
         }
-    }
+
     var questionNumber = -1;
     function getQuestions() {
-        if (lastAnswer === false) {
-            timeLeft -= 5;
-        }
         optionsEl.innerHTML = "";
         questionNumber++;
         if (questionNumber < questions.length) {
@@ -64,7 +63,9 @@ function startQuiz() {
             }            
         }
         else {
-            clearInterval(runTimer);
+            timerEl.innerHTML = "All done!";
+            console.log("still running");
+            clearInterval(timer);
         }
     }
     function checkAnswer (event) {
@@ -72,11 +73,13 @@ function startQuiz() {
         if(lastAnswer) {
             score++;
         }
+        else {
+            timeLeft -= 5;
+        }
         currentScore.innerText = 'Current Score: ' + score;
         getQuestions();
     }
 
-    runTimer();
     getQuestions();
 }
 
