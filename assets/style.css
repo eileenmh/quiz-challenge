@@ -1,15 +1,22 @@
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Satoshi', sans-serif;
+}
+
 h1 {
     font-family: 'Clash Display', sans-serif;
 }
 
 h2, h3 {
-    font-family: 'Satoshi';
     font-weight: 700;
 }
 
-div, p {
-    font-family: 'Satoshi', sans-serif;
-
+p {
+    text-justify: auto;
 }
 
 header {
@@ -18,4 +25,8 @@ header {
 
 .hide {
     visibility: hidden;
+}
+
+#left-side, #right-side {
+    width: 48%;
 }

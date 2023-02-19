@@ -1,11 +1,11 @@
 var startButtonEl = document.querySelector("#start-button");
 var timerEl = document.querySelector("#timer");
-var questionEl = document.querySelector('h3');
-var optionsEl = document.querySelector('#options');
+var questionEl = document.querySelector("#question");
+var optionsEl = document.querySelector('#answer-options');
 var gameTrackerEl = document.querySelector('#game-tracker');
 var scoreButtonEl = document.querySelector('#submit-score');
-var currentScore = document.createElement("div");
-gameTrackerEl.appendChild(currentScore);
+var scoreStatusEl = document.querySelector("#score-status")
+var currentScore = document.querySelector('#current-score');
 
 var score;
 var scoreboard = [];
@@ -29,22 +29,26 @@ var questions = [question1, question2, question3];
 // Timer that starts on click of Start Button
 function startQuiz() {
     score = 0;
-
-    startButtonEl.classList.toggle("hide");
-    currentScore.innerText = 'Current Score: ' + score;
+    currentScore.innerText = score;
+    scoreStatusEl.innerText = "Current Score:"
+    startButtonEl.innerText = "I give up ☹️"
 
     var timer = setInterval(countdown, 1000);
 
     function countdown() {
             timeLeft--;
-            if (timeLeft > 2) {
-                timerEl.innerHTML = timeLeft + ' seconds remaining';
+            if (timeLeft > 9) {
+                timerEl.innerText = '0:' + timeLeft + ' seconds remaining';
+            }
+            else if (timeLeft > 2) {
+                timerEl.innerText = '0:0' + timeLeft + ' seconds remaining';
             }
             else if (timeLeft === 2) {
-                timerEl.innerHTML = timeLeft + ' second remaining';
+                timerEl.innerText = '0:0' + timeLeft + ' second remaining';
             }
             else {
                 timerEl.innerHTML = "Time's up!";
+                scoreStatusEl.innerText = "Final Score:"
                 restartQuiz();
                 clearInterval(timer);
             }
@@ -56,18 +60,20 @@ function startQuiz() {
         questionNumber++;
         if (questionNumber < questions.length) {
             questionEl.innerText = questions[questionNumber].question;
+            console.log("it's running here");
 
             for (let i = 0; i < questions[questionNumber].options.length; i++) {
                  var answerOption = document.createElement("button");
                  answerOption.innerText = questions[questionNumber].options[i];
-                 answerOption.classList.add("answer-option");
+                 answerOption.classList.add("mb-3");
+                 answerOption.classList.add("w-100");
                  optionsEl.appendChild(answerOption);
                  answerOption.addEventListener('click',checkAnswer);
             }            
         }
         else {
             timerEl.innerHTML = "All done!";
-            console.log("still running");
+            scoreStatusEl.innerText = "Final Score:"
             restartQuiz();
             clearInterval(timer);
         }
@@ -80,7 +86,7 @@ function startQuiz() {
         else {
             timeLeft -= 5;
         }
-        currentScore.innerText = 'Current Score: ' + score;
+        currentScore.innerText = score;
         getQuestions();
     }
 
@@ -89,7 +95,7 @@ function startQuiz() {
 
 function restartQuiz() {
     timeLeft = 60;
-    startButtonEl.classList.toggle("hide");
+    startButtonEl.innerText = "Try again";
 }
 
 function saveScore(event) {
