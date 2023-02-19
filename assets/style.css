@@ -15,10 +15,6 @@ h2, h3 {
     font-weight: 700;
 }
 
-h3 {
-    font-size: 20px;
-}
-
 p {
     text-justify: auto;
 }
@@ -33,4 +29,8 @@ header {
 
 #left-side, #right-side {
     width: 48%;
+}
+
+#question {
+    font-weight: bold;
 }

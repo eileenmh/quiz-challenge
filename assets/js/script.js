@@ -31,6 +31,7 @@ var allQuestions = [question1, question2, question3];
 
 // On quiz start, present the first question; once answer is received, present second question; etc.
 var questionNumber; // used to compare how many questions the for loop in presentQuestions() has gone through to how many question exist.
+var answerValidity; // used to check chosen answer against actual answer
 
 function presentQuestions() {
 
@@ -39,12 +40,14 @@ function presentQuestions() {
 
         document.querySelector("#question").innerText = allQuestions[questionNumber].question;
         document.querySelector('#mc-options').innerHTML = "";
+        document.querySelector("#last-answer").innerText = "";
 
         for (let i = 0; i < allQuestions[questionNumber].answerOptions.length; i++) {
-             var answerOption = document.createElement("button");
+             
+            var answerOption = document.createElement("button");
              answerOption.innerText = allQuestions[questionNumber].answerOptions[i];
-             answerOption.classList.add("mb-3");
-             answerOption.classList.add("w-100");
+             answerOption.classList.add("mb-3","w-100","list-group-item","list-group-item-action","answer-options");
+
              document.querySelector('#mc-options').appendChild(answerOption);
              answerOption.addEventListener('click',checkAnswer);
         }
@@ -57,17 +60,22 @@ function presentQuestions() {
 
 // Compare selected answer to actual answer and increase score by one if correct, deduct 5 seconds from timer if incorrect
 function checkAnswer (event) {
-    var answerValidity;
+    var answerOptions = document.getElementsByClassName("answer-options");
+    for (let i = 0; i < answerOptions.length; i++) {
+        answerOptions[i].disabled = true;
+    }
     answerValidity = event.srcElement.textContent === allQuestions[questionNumber].correctAnswer;
-    if(answerValidity) {
+    if (answerValidity) {
+        document.querySelector("#last-answer").innerText = "Correct! ✅";
         score++;
     }
     else {
+        document.querySelector("#last-answer").innerText = "Wrong! 5 seconds deducted from timer. ⏳";
         timeLeft -= 5;
     }
     currentScore.innerText = score;
     questionNumber++;
-    presentQuestions();
+    setTimeout(presentQuestions, 2000);
 }
 
 /* -------------------------------------------------------------------------------------------
@@ -100,8 +108,6 @@ var score = 0;
 var savedScores = [];
 var scoreStatusEl = document.querySelector("#score-status")
 var currentScore = document.querySelector('#current-score');
-
-
 
 // once the quiz is complete, user has option to save their score to the scoreboard; saved scores are stored in local storage
 var initialsEl = document.getElementById("initials");
@@ -178,6 +184,7 @@ function endQuiz() {
     // Reset questions
     document.querySelector("#question").innerText = "";
     document.querySelector('#mc-options').innerHTML = "";
+    document.querySelector("#last-answer").innerText = "";
 
     // Reset quiz
     quizButtonEl.innerText = "Try again";

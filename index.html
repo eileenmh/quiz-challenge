@@ -15,32 +15,34 @@
 <body class="m-2">
 
     <header class="m-4">
-        <h1 class="display-1">Code Quiz</h1>
+        <h1 class="display-1">Full-Stack Dev Quiz</h1>
     </header>
 
     <main class="w-75 m-auto">
-        <section id="introduction">
-            <h2>Test Your Full-Stack Knowledge!</h2>
+        <section id="introduction" class="m-auto">
+            <h2>Test Your Knowledge!</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dignissim enim sit amet venenatis urna cursus. Rhoncus mattis rhoncus urna neque.</p>
-            <button id="quiz-button" class>Start the Quiz</button>
+            <button id="quiz-button" class="mb-4 rounded">Start the Quiz</button>
         </section>
 
         <div class="d-flex justify-content-between">
 
-            <section id="right-side" class="border border-2 p-3">
+            <section id="right-side" class="border border-2 p-3 rounded">
 
                 <div>
-                    <h3 id="question" class="mb-3"></h3>
-                    <div id="mc-options" class="btn-group-vertical" class="mb-3"></div>
+                    <div id="question" class="mb-3"></div>
+                    <div id="mc-options" class="list-group" class="mb-3"></div>
                 </div>
 
-                <div id ="feedback"></div>
+                <div id ="feedback" class="">
+                    <div id="last-answer"></div>
+                </div>
 
             </section>
 
             <section id="left-side" class="">
 
-                <div class="border border-2 p-3">
+                <div class="border border-2 p-3 rounded">
                     <div class=""><b>Timer: </b><span id="time-left">1:00 minute remaining</span></div>
                     <div id="score-tracker" class=""><b><span id="score-status">Current Score:</span></b> <span id="current-score">0</span></div>
                 </div>
@@ -50,8 +52,8 @@
                     <input id="save-button" type="submit" value="Save Score">
                 </form>
 
-                <div class="border border-2 p-3">
-                    <h2>Scoreboard</h2>
+                <div class="border border-2 p-3 rounded">
+                    <h3>Scoreboard</h3>
                     <div id="scorelist"></div>
                 </div>
             </section>
