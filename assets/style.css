@@ -1,5 +1,7 @@
 html, body {
     height: 100%;
+    background-color: #D1C8E1;
+    color: #453750;
 }
 
 html {
@@ -36,8 +38,8 @@ header {
     visibility: hidden;
 }
 
-#left-side, #right-side {
-    width: 48%;
+.left-side, .right-side {
+    width: 48%
 }
 
 #question {
@@ -46,4 +48,18 @@ header {
 
 label {
     display: block;
+}
+
+.answer-options {
+    background-color: #F5F5F5;
+    color: #453750; 
+}
+
+.answer-options:hover {
+    background-color: #453750;
+    color: #F5F5F5;
+}
+
+.answer-options:disabled {
+    background-color: #E1E1E1;
 }

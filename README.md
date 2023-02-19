@@ -1,4 +1,4 @@
-GIVEN I am taking a code quiz 
+GIVEN I am taking a code quiz
 WHEN I click the start button
 THEN a timer starts and I am presented with a question
 WHEN I answer a question
@@ -11,6 +11,7 @@ WHEN the game is over
 THEN I can save my initials and score
 
 - Organization
+- Help with Bootstrap
 - how would I do different question types, like T/F?
 - For Each vs. For Loop?
 - Add randomizing of question presentation and options presentation

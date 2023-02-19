@@ -36,35 +36,39 @@
         <button id="quiz-button" class="mb-4 rounded">Start the Quiz</button>
       </section>
 
-      <div class="d-flex justify-content-between">
-        <section id="right-side" class="border border-2 p-3 rounded">
-          <div>
-            <div id="question" class="mb-3"></div>
-            <div id="mc-options" class="list-group mb-3">"</div>
-          </div>
+        <div class="d-flex justify-content-between">
+          <section class="right-side border border-2 p-3 rounded">
+            <div>
+              <div id="question" class="mb-3"></div>
+              <div id="mc-options" class="list-group mb-3"></div>
+            </div>
+          </section>
 
-          <div id="feedback" class="">
+          <section class="left-side">
+            <div class="border border-2 p-3 rounded mb-3">
+              <div class="">
+                <b>Timer: </b><span id="time-left">1:00 minute remaining</span>
+              </div>
+              <div id="score-tracker" class="">
+                <b><span id="score-status">Current Score:</span></b>
+                <span id="current-score">0</span>
+              </div>
+            </div>
+
+            <div class="border border-2 p-3 rounded mb-3">
+              <h3>Scoreboard</h3>
+              <div id="scorelist"></div>
+              <button>Reset</button>
+            </div>
+          </section>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div id="feedback" class="right-side">
             <div id="last-answer"></div>
           </div>
-        </section>
 
-        <section id="left-side" class="">
-          <div class="border border-2 p-3 rounded mb-3">
-            <div class="">
-              <b>Timer: </b><span id="time-left">1:00 minute remaining</span>
-            </div>
-            <div id="score-tracker" class="">
-              <b><span id="score-status">Current Score:</span></b>
-              <span id="current-score">0</span>
-            </div>
-          </div>
-
-          <div class="border border-2 p-3 rounded mb-3">
-            <h3>Scoreboard</h3>
-            <div id="scorelist"></div>
-          </div>
-
-          <form id="submit-score" class="hide mb-3">
+          <form id="submit-score" class="hide mb-3 left-side">
             <label for="initials">Save your score:</label>
             <input
               id="initials"
@@ -74,8 +78,7 @@
             />
             <input id="save-button" type="submit" value="Save Score" />
           </form>
-        </section>
-      </div>
+        </div>
     </main>
 
     <script src="./assets/js/script.js"></script>
