@@ -1,3 +1,21 @@
+h1 {
+    font-family: 'Clash Display', sans-serif;
+}
+
+h2, h3 {
+    font-family: 'Satoshi';
+    font-weight: 700;
+}
+
+div, p {
+    font-family: 'Satoshi', sans-serif;
+
+}
+
+header {
+    text-align: center;
+}
+
 .hide {
     visibility: hidden;
 }
