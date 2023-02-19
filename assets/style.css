@@ -1,6 +1,15 @@
+html, body {
+    height: 100%;
+}
 
 html {
-    height: 100%;
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 body {
@@ -33,4 +42,8 @@ header {
 
 #question {
     font-weight: bold;
+}
+
+label {
+    display: block;
 }
