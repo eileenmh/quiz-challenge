@@ -2,47 +2,63 @@
 // MULTIPLE CHOICE QUESTIONS
 */
 // Create multiple-choice-question objects
-function mcObject(question, options, answer) {
+function mcQuestion(question, options, answer) {
     this.question = question;
     this.answerOptions = options;
     this.correctAnswer = answer;
 }
 
-var question1 = new mcObject("Question 1 Text", ['q1 - option 1', 'q1 - option 2', 'q1 - option 3', 'q1 - option 4'], "q1 - option 3");
-var question2 = new mcObject("Question 2 Text", ['q2 - option 1', 'q2 - option 2', 'q2 - option 3', 'q2 - option 4'], "q2 - option 1");
-var question3 = new mcObject("Question 3 Text", ['q3 - option 1', 'q3 - option 2', 'q3 - option 3', 'q3 - option 4'], "q3 - option 4");
+var question1 = new mcQuestion(
+    "Question 1 Text", 
+    ['q1 - option 1', 'q1 - option 2', 'q1 - option 3', 'q1 - option 4'], 
+    "q1 - option 3",
+    )
 
- // array created in order to pass through one question after another - see presentQuestions()
-var mcQuestions = [question1, question2, question3];
+var question2 = new mcQuestion(
+    "Question 2 Text", 
+    ['q2 - option 1', 'q2 - option 2', 'q2 - option 3', 'q2 - option 4'], 
+    "q2 - option 1",
+    )
 
-// On quiz start, present the first question; once answer is received, present second question; etc. When there are no more questions, end the quiz.
-var questionEl = document.querySelector("#question");
-var mcOptionsEl = document.querySelector('#mc-options');
+var question3 = new mcQuestion(
+    "Question 3 Text", 
+    ['q3 - option 1', 'q3 - option 2', 'q3 - option 3', 'q3 - option 4'], 
+    "q3 - option 4",
+)
+
+ // array created in order to present one question after another - see presentQuestions()
+var allQuestions = [question1, question2, question3];
+
+// On quiz start, present the first question; once answer is received, present second question; etc.
 var questionNumber; // used to compare how many questions the for loop in presentQuestions() has gone through to how many question exist.
 
 function presentQuestions() {
-    mcOptionsEl.innerHTML = "";
-    if (questionNumber < mcQuestions.length) {
-        questionEl.innerText = mcQuestions[questionNumber].question;
 
-        for (let i = 0; i < mcQuestions[questionNumber].answerOptions.length; i++) {
+    // check if there are more questions to go through; if not, end the quiz
+    if (questionNumber < allQuestions.length) {
+
+        document.querySelector("#question").innerText = allQuestions[questionNumber].question;
+        document.querySelector('#mc-options').innerHTML = "";
+
+        for (let i = 0; i < allQuestions[questionNumber].answerOptions.length; i++) {
              var answerOption = document.createElement("button");
-             answerOption.innerText = mcQuestions[questionNumber].answerOptions[i];
+             answerOption.innerText = allQuestions[questionNumber].answerOptions[i];
              answerOption.classList.add("mb-3");
              answerOption.classList.add("w-100");
-             mcOptionsEl.appendChild(answerOption);
+             document.querySelector('#mc-options').appendChild(answerOption);
              answerOption.addEventListener('click',checkAnswer);
         }
     }
     else {
         endQuiz();
     }
+
 }
 
 // Compare selected answer to actual answer and increase score by one if correct, deduct 5 seconds from timer if incorrect
 function checkAnswer (event) {
     var answerValidity;
-    answerValidity = event.srcElement.textContent === mcQuestions[questionNumber].correctAnswer;
+    answerValidity = event.srcElement.textContent === allQuestions[questionNumber].correctAnswer;
     if(answerValidity) {
         score++;
     }
@@ -80,7 +96,7 @@ function countdown() {
 /* -------------------------------------------------------------------------------------------
 // SCORE TRACKING
 */
-var score;
+var score = 0;
 var savedScores = [];
 var scoreStatusEl = document.querySelector("#score-status")
 var currentScore = document.querySelector('#current-score');
@@ -127,15 +143,18 @@ function updateScoreboard() {
 /* -------------------------------------------------------------------------------------------
 // RUN THE QUIZ
 */
+var quizActive = false;
+
 function startQuiz() {
+    quizActive = true;
     quizButtonEl.innerText = "I give up ☹️"
 
-    // reset score
-    score = 0;
+    // set current score
     currentScore.innerText = score;
     scoreStatusEl.innerText = "Current Score:"
 
     // start the timer
+    timeLeftEl.innerText = "1:00 minute remaining";
     timeLeft = 60;
     timer = setInterval(countdown, 1000);
 
@@ -144,21 +163,36 @@ function startQuiz() {
     presentQuestions();
 }
 
-function restartQuiz() {
-    quizButtonEl.innerText = "Try again";
-    scoreFormEl.classList.toggle("hide");
-}
-
 function endQuiz() {
+    quizActive = false;
+    clearInterval(timer);
     if (timeLeft < 1) {
-        timeLeftEl.innerHTML = "Time's up!";
+        timeLeftEl.innerText = "Time's up!";
     }
     else {
-        timeLeftEl.innerHTML = "All done!";
+        timeLeftEl.innerText = "All done!";
     }
     scoreStatusEl.innerText = "Final Score:";
-    clearInterval(timer);
+    scoreFormEl.classList.toggle("hide"); // reveal the score form
+
+    // Reset questions
+    document.querySelector("#question").innerText = "";
+    document.querySelector('#mc-options').innerHTML = "";
+
+    // Reset quiz
+    quizButtonEl.innerText = "Try again";
+    score = 0;
+}
+
+function runQuiz() {
+    if (quizActive) {
+        endQuiz();
+    }
+    else {
+        startQuiz();
+    }
+
 }
 
 var quizButtonEl = document.querySelector("#quiz-button");
-quizButtonEl.addEventListener('click', startQuiz);
+quizButtonEl.addEventListener('click', runQuiz);
