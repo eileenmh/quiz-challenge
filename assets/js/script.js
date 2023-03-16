@@ -1,8 +1,4 @@
 /* -------------------------------------------------------------------------------------------
-RESPONSIVE DESIGN
-*/
-
-/* -------------------------------------------------------------------------------------------
 MULTIPLE CHOICE QUESTIONS
 */
 // Create multiple-choice-question objects
@@ -80,13 +76,14 @@ function checkAnswer(event) {
     event.srcElement.textContent === allQuestions[questionNumber].correctAnswer;
   if (answerValidity) {
     document.querySelector("#last-answer").innerText = "Correct! ✅";
+    score = currentScore.innerText;
     score++;
+    currentScore.innerText = score;
   } else {
     document.querySelector("#last-answer").innerText =
       "Wrong! 5 seconds deducted from timer. ⏳";
     timeLeft -= 5;
   }
-  currentScore.innerText = score;
   questionNumber++;
   setTimeout(presentQuestions, 2000);
 }
@@ -115,9 +112,17 @@ function countdown() {
 SCORE TRACKING
 */
 var score = 0;
-var savedScores = [];
+var savedScores = function () {
+  var storedScores = localStorage.getItem("saved-scores");
+  if (storedScores === null) {
+    return new Array();
+  } else {
+    return JSON.parse(localStorage.getItem("saved-scores"));
+  }
+};
 var scoreStatusEl = document.querySelector("#score-status");
 var currentScore = document.querySelector("#current-score");
+var resetButtonEl = document.querySelector("#reset-button");
 
 // once the quiz is complete, user has option to save their score to the scoreboard; saved scores are stored in local storage
 var initialsEl = document.getElementById("initials");
@@ -126,35 +131,45 @@ scoreFormEl.addEventListener("submit", saveScore);
 
 function saveScore(event) {
   event.preventDefault();
-  scoreFormEl.classList.toggle("hide");
-  savedScores.push(initialsEl.value + " - " + score);
-  localStorage.setItem("saved-scores", JSON.stringify(savedScores));
+  score = currentScore.textContent;
+  let updatedScores = savedScores();
+  updatedScores.push(initialsEl.value + " - " + score);
+  localStorage.setItem("saved-scores", JSON.stringify(updatedScores));
   updateScoreboard();
+  scoreFormEl.classList.toggle("hide");
 }
 
 // On page load, check for scores in local storage and if they exist, put them on the scoreboard
 var scoreboardEl = document.getElementById("scorelist");
 var scoreList = document.createElement("ol");
 
-if (localStorage.getItem("saved-scores") === null) {
-  scoreboardEl.innerText = "No scores saved yet.";
-} else {
-  savedScores = JSON.parse(localStorage.getItem("saved-scores"));
-  scoreboardEl.appendChild(scoreList);
-  updateScoreboard();
-}
+updateScoreboard();
 
 // the scoreboard is updated on page load and when a new score is saved
 function updateScoreboard() {
-  scoreList.innerHTML = "";
-  scoreboardEl.appendChild(scoreList);
-  for (let i = 0; i < savedScores.length; i++) {
-    var record = document.createElement("li");
-    record.innerText = savedScores[i];
-    scoreList.appendChild(record);
+  if (localStorage.getItem("saved-scores") === null) {
+    scoreboardEl.innerText = "No scores saved yet.";
+    resetButtonEl.classList.add("hide");
+  } else {
+    scoreboardEl.innerHTML = "";
+    scoreList.innerHTML = "";
+    scoreboardEl.appendChild(scoreList);
+    const updatedScores = savedScores();
+    for (let i = 0; i < updatedScores.length; i++) {
+      var record = document.createElement("li");
+      record.innerText = updatedScores[i];
+      scoreList.appendChild(record);
+      resetButtonEl.classList.remove("hide");
+    }
   }
 }
 
+function resetScoreboard() {
+  localStorage.clear();
+  updateScoreboard();
+}
+
+resetButtonEl.addEventListener("click", resetScoreboard);
 /* -------------------------------------------------------------------------------------------
 RUN THE QUIZ
 */
@@ -165,7 +180,7 @@ function startQuiz() {
   quizButtonEl.innerText = "I give up ☹️";
 
   // set current score
-  currentScore.innerText = score;
+  currentScore.innerText = 0;
   scoreStatusEl.innerText = "Current Score:";
 
   // start the timer
@@ -196,7 +211,6 @@ function endQuiz() {
 
   // Reset quiz
   quizButtonEl.innerText = "Try again";
-  score = 0;
 }
 
 function runQuiz() {
@@ -209,3 +223,6 @@ function runQuiz() {
 
 var quizButtonEl = document.querySelector("#quiz-button");
 quizButtonEl.addEventListener("click", runQuiz);
+scoreFormEl.classList.toggle("hide");
+console.log(savedScores);
+console.log(savedScores());
