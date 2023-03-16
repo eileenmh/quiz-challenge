@@ -2,32 +2,47 @@
 MULTIPLE CHOICE QUESTIONS
 */
 // Create multiple-choice-question objects
+let allQuestions = [];
+
 function mcQuestion(question, options, answer) {
   this.question = question;
   this.answerOptions = options;
   this.correctAnswer = answer;
+  allQuestions.push(this);
 }
 
 var question1 = new mcQuestion(
-  "Question 1 Text",
-  ["q1 - option 1", "q1 - option 2", "q1 - option 3", "q1 - option 4"],
-  "q1 - option 3"
+  "Which of the following allows you to apply CSS styles dependent on a device's characteristics (such as browser viewport width)?",
+  ["media queries", "flexbox", "grid", "overflow"],
+  "media queries"
 );
 
 var question2 = new mcQuestion(
-  "Question 2 Text",
-  ["q2 - option 1", "q2 - option 2", "q2 - option 3", "q2 - option 4"],
-  "q2 - option 1"
+  "To link a JavaScript file in your HTML, which of the following attributes would you use with the <script> tag?",
+  ["value", "src", "a", "type"],
+  "src"
 );
 
 var question3 = new mcQuestion(
-  "Question 3 Text",
-  ["q3 - option 1", "q3 - option 2", "q3 - option 3", "q3 - option 4"],
-  "q3 - option 4"
+  "The Boolean object represents a/an:",
+  ["number", "undefined value", "string", "truth value"],
+  "truth value"
+);
+
+var question4 = new mcQuestion(
+  "Which of the following git commands creates an empty Git repository?",
+  ["git commit", "git init", "git pull", "git push"],
+  "git init"
+);
+
+var question5 = new mcQuestion(
+  `Which "display" value hides an element in CSS?`,
+  ["grid", "block", "none", "flex"],
+  "none"
 );
 
 // array created in order to present one question after another - see presentQuestions()
-var allQuestions = [question1, question2, question3];
+// var allQuestions = [question1, question2, question3];
 
 // On quiz start, present the first question; once answer is received, present second question; etc.
 var questionNumber; // used to compare how many questions the for loop in presentQuestions() has gone through to how many question exist.
