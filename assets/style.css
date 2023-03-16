@@ -63,3 +63,7 @@ label {
 .answer-options:disabled {
     background-color: #E1E1E1;
 }
+
+#instructions-content {
+    display: none;
+}
