@@ -239,5 +239,3 @@ function runQuiz() {
 var quizButtonEl = document.querySelector("#quiz-button");
 quizButtonEl.addEventListener("click", runQuiz);
 scoreFormEl.classList.toggle("hide");
-console.log(savedScores);
-console.log(savedScores());
